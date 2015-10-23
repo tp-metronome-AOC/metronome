@@ -1,7 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.shape.Circle?>
-<FlowPane fx:controller="fr.istic.aoc.metronome.view.MetronomeViewImpl"
-          xmlns:fx="http://javafx.com/fxml"
-          orientation="VERTICAL" alignment="center" hgap="10" vgap="30">
-</FlowPane>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.istic.aoc.metronome.view.MetronomeViewImpl">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Slider fx:id="sdr_tempoSelector" orientation="VERTICAL">
+               <padding>
+                  <Insets left="50.0" right="50.0" />
+               </padding>
+            </Slider>
+            <Label style="-fx-font-size: 39.0;" text="120" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="50.0" left="30.0" right="30.0" top="50.0" />
+               </padding>
+            </Label>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Circle fx:id="led_led1" fill="DARKGREEN" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Label text="LED 1">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Circle fx:id="led_led2" fill="DARKRED" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Label text="LED 2">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></Label>
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <HBox.margin>
+                  <Insets left="50.0" right="50.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Button fx:id="bt_start" mnemonicParsing="false" text="START" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="bt_stop" mnemonicParsing="false" text="STOP" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="bt_increase" mnemonicParsing="false" text="INC" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="bt_decrease" mnemonicParsing="false" text="DEC" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>
