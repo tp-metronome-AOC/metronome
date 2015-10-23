@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
  *
  * Created by leiko on 23/10/15.
  */
-public class MetronomeViewImpl implements Initializable{
+public class MetronomeViewImpl implements Initializable,IView{
 
     @FXML
     public Circle led_led1;
