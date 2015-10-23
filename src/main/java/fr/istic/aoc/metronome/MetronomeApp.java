@@ -23,7 +23,8 @@ public class MetronomeApp extends Application {
         Parent root = loader.load(getClass().getResource("/metronome.fxml").openStream());
 
         stage.setTitle("Metronome");
-        stage.setScene(new Scene(root, 300, 150));
+        stage.setScene(new Scene(root, 450, 200));
+        stage.setResizable(false);
         stage.show();
     }
 
