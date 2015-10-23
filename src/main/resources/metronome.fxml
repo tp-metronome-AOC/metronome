@@ -15,7 +15,7 @@
                   <Insets left="50.0" right="50.0" />
                </padding>
             </Slider>
-            <Label style="-fx-font-size: 39.0;" text="120" textAlignment="CENTER">
+            <Label style="-fx-min-width:150; -fx-text-alignment:center; -fx-font-size: 39.0;" text="120" textAlignment="CENTER" fx:id="lbl_bpm">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
