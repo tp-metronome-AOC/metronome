@@ -26,4 +26,14 @@ public class MetronomeViewImpl implements Initializable,IView{
     public void initialize(URL location, ResourceBundle resources) {
         led_led1.setFill(Color.GREEN);
     }
+
+    @Override
+    public void marquerTemps() {
+
+    }
+
+    @Override
+    public void marquerMesure() {
+
+    }
 }
