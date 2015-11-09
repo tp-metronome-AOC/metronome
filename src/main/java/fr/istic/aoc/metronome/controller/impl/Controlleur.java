@@ -15,13 +15,14 @@ import java.util.Observer;
 public class Controlleur implements IControlleur, Observer {
 
     private IView view;
+    private IMoteur moteur;
 
     public Controlleur(IView pView) {
         view = pView;
         view.addObserver(this);
         view.setControlleur(this);
 
-        IMoteur moteur = new Moteur();
+        moteur = new Moteur();
         IClock clock = new Clock();
         clock.setCommand(TypeEventMarquage.MARQUERMESURE, view::marquerMesure);
         clock.setCommand(TypeEventMarquage.MARQUERMESURE, view::marquerTemps);
@@ -31,11 +32,11 @@ public class Controlleur implements IControlleur, Observer {
     }
 
     public void updateMolette() {
-        System.out.println("Update molette");
+        moteur.setBPM((int) view.getPositionMolette());
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        ( (Command) arg).execute();
+        ((Command) arg).execute();
     }
 }

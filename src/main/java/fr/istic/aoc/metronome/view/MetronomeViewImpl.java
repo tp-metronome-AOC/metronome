@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 import java.net.URL;
@@ -18,10 +17,9 @@ import java.util.Observable;
 import java.util.ResourceBundle;
 
 /**
- *
  * Created by leiko on 23/10/15.
  */
-public class MetronomeViewImpl extends Observable implements Initializable,IView {
+public class MetronomeViewImpl extends Observable implements Initializable, IView {
 
     IControlleur controlleur;
 
@@ -84,5 +82,10 @@ public class MetronomeViewImpl extends Observable implements Initializable,IView
 
     public void setControlleur(IControlleur controlleur) {
         this.controlleur = controlleur;
+    }
+
+    @Override
+    public double getPositionMolette() {
+        return sdr_tempoSelector.getValue();
     }
 }

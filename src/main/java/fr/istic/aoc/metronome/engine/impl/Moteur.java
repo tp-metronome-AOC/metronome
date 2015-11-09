@@ -1,11 +1,7 @@
 package fr.istic.aoc.metronome.engine.impl;
 
-import fr.istic.aoc.metronome.command.Command;
-import fr.istic.aoc.metronome.command.TypeEventMarquage;
 import fr.istic.aoc.metronome.engine.IClock;
 import fr.istic.aoc.metronome.engine.IMoteur;
-
-import java.util.HashMap;
 
 public class Moteur implements IMoteur {
 
@@ -13,7 +9,7 @@ public class Moteur implements IMoteur {
     private Integer bpmMesure;
     private IClock clock;
 
-    public Moteur(){
+    public Moteur() {
         bpm = 10;
         bpmMesure = 4;
         clock = new Clock();
@@ -26,7 +22,7 @@ public class Moteur implements IMoteur {
 
     @Override
     public void setBPM(Integer bpm) {
-        this.bpm=bpm;
+        this.bpm = bpm;
     }
 
     @Override
