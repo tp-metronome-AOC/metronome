@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
  *
  * Created by leiko on 23/10/15.
  */
-public class MetronomeViewImpl extends Observable implements Initializable {
+public class MetronomeViewImpl extends Observable implements Initializable,IView {
 
     /*
     Controls
@@ -60,5 +60,15 @@ public class MetronomeViewImpl extends Observable implements Initializable {
         });
 
         led_led1.setFill(Color.GREEN);
+    }
+
+    @Override
+    public void marquerTemps() {
+
+    }
+
+    @Override
+    public void marquerMesure() {
+
     }
 }

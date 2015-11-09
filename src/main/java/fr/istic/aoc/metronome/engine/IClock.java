@@ -1,5 +1,8 @@
 package fr.istic.aoc.metronome.engine;
 
-public interface IClock {
+import fr.istic.aoc.metronome.command.Command;
+import fr.istic.aoc.metronome.command.TypeEventMarquage;
 
+public interface IClock {
+    void setCommand(TypeEventMarquage event,Command command);
 }
