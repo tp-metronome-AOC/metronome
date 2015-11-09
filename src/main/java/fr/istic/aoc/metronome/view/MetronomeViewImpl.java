@@ -1,5 +1,7 @@
 package fr.istic.aoc.metronome.view;
 
+import fr.istic.aoc.metronome.command.Command;
+import fr.istic.aoc.metronome.controller.IControlleur;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -20,6 +22,8 @@ import java.util.ResourceBundle;
  * Created by leiko on 23/10/15.
  */
 public class MetronomeViewImpl extends Observable implements Initializable,IView {
+
+    IControlleur controlleur;
 
     /*
     Controls
@@ -56,7 +60,12 @@ public class MetronomeViewImpl extends Observable implements Initializable,IView
             @Override
             public void changed(ObservableValue arg0, Object arg1, Object arg2) {
                 setChanged();
-                MetronomeViewImpl.this.notifyObservers(arg0.getValue());
+                MetronomeViewImpl.this.notifyObservers(new Command() {
+                    @Override
+                    public void execute() {
+                        controlleur.updateMolette();
+                    }
+                });
             }
         });
 
@@ -71,5 +80,9 @@ public class MetronomeViewImpl extends Observable implements Initializable,IView
     @Override
     public void marquerMesure() {
 
+    }
+
+    public void setControlleur(IControlleur controlleur) {
+        this.controlleur = controlleur;
     }
 }

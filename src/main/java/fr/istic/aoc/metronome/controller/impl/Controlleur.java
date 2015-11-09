@@ -1,5 +1,6 @@
 package fr.istic.aoc.metronome.controller.impl;
 
+import fr.istic.aoc.metronome.command.Command;
 import fr.istic.aoc.metronome.command.TypeEventMarquage;
 import fr.istic.aoc.metronome.controller.IControlleur;
 import fr.istic.aoc.metronome.engine.IClock;
@@ -18,6 +19,7 @@ public class Controlleur implements IControlleur, Observer {
     public Controlleur(IView pView) {
         view = pView;
         view.addObserver(this);
+        view.setControlleur(this);
 
         IMoteur moteur = new Moteur();
         IClock clock = new Clock();
@@ -28,9 +30,12 @@ public class Controlleur implements IControlleur, Observer {
     public void onBpmChanged() {
     }
 
+    public void updateMolette() {
+        System.out.println("Update molette");
+    }
+
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println(arg.toString());
-        //System.out.println(o.toString());
+        ( (Command) arg).execute();
     }
 }
