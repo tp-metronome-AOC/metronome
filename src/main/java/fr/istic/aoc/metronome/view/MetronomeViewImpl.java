@@ -12,13 +12,14 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 /**
  *
  * Created by leiko on 23/10/15.
  */
-public class MetronomeViewImpl implements Initializable{
+public class MetronomeViewImpl extends Observable implements Initializable {
 
     /*
     Controls
@@ -50,17 +51,11 @@ public class MetronomeViewImpl implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        sdr_tempoSelector.setOnDragDetected((event) -> {
-            System.out.println(event.toString());
-        });
-
         sdr_tempoSelector.valueProperty().addListener(new ChangeListener() {
 
             @Override
             public void changed(ObservableValue arg0, Object arg1, Object arg2) {
-                lbl_bpm.textProperty().setValue(
-                        String.valueOf((int) sdr_tempoSelector.getValue()));
-
+                MetronomeViewImpl.this.notifyObservers();
             }
         });
 

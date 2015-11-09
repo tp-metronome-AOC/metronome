@@ -2,7 +2,10 @@ package fr.istic.aoc.metronome.controller.impl;
 
 import fr.istic.aoc.metronome.controller.IControlleur;
 
-public class Controlleur implements IControlleur {
+import java.util.Observable;
+import java.util.Observer;
+
+public class Controlleur implements IControlleur, Observer {
 
     @Override
     public void marquerTemps() {
@@ -12,5 +15,13 @@ public class Controlleur implements IControlleur {
     @Override
     public void marquerMesure() {
 
+    }
+
+    public void onBpmChanged() {
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println(o.toString());
     }
 }
