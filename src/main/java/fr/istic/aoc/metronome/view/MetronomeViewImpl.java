@@ -21,6 +21,9 @@ import java.util.ResourceBundle;
  */
 public class MetronomeViewImpl extends Observable implements Initializable, IView {
 
+    private final int BPM_SELECTOR_MIN = 60;
+    private final int BPM_SELECTOR_MAX = 180;
+
     IControlleur controlleur;
 
     /*
@@ -68,6 +71,9 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
         });
 
         led_led1.setFill(Color.GREEN);
+
+        sdr_tempoSelector.setMin(BPM_SELECTOR_MIN);
+        sdr_tempoSelector.setMax(BPM_SELECTOR_MAX);
     }
 
     @Override
