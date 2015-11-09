@@ -55,7 +55,8 @@ public class MetronomeViewImpl extends Observable implements Initializable,IView
 
             @Override
             public void changed(ObservableValue arg0, Object arg1, Object arg2) {
-                MetronomeViewImpl.this.notifyObservers();
+                setChanged();
+                MetronomeViewImpl.this.notifyObservers(arg0.getValue());
             }
         });
 

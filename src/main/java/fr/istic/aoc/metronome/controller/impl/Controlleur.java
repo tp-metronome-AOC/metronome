@@ -17,6 +17,8 @@ public class Controlleur implements IControlleur, Observer {
 
     public Controlleur(IView pView) {
         view = pView;
+        view.addObserver(this);
+
         IMoteur moteur = new Moteur();
         IClock clock = new Clock();
         clock.setCommand(TypeEventMarquage.MARQUERMESURE, view::marquerMesure);
@@ -28,6 +30,7 @@ public class Controlleur implements IControlleur, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println(o.toString());
+        System.out.println(arg.toString());
+        //System.out.println(o.toString());
     }
 }
