@@ -9,4 +9,10 @@ public interface IMoteur {
 
     Integer getBPMesure();
     void setBPMesure(Integer bpm);
+
+    void tickTemps();
+    void tickMesure();
+
+    void start();
+    void stop();
 }

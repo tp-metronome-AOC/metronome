@@ -11,6 +11,7 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class Clock implements IClock{
 
+    private int intervalInMs = 0;
 
     private HashMap<TypeEventMarquage,Command> mapEventCommand = new HashMap<TypeEventMarquage,Command>();
 
@@ -22,4 +23,8 @@ public class Clock implements IClock{
     public void setCommand(TypeEventMarquage event,Command command){
         mapEventCommand.put(event,command);
     };
+
+    public void init(int intervalInMs) {
+        this.intervalInMs = intervalInMs;
+    }
 }

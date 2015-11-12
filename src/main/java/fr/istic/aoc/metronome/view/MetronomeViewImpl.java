@@ -4,6 +4,8 @@ import fr.istic.aoc.metronome.command.Command;
 import fr.istic.aoc.metronome.controller.IControlleur;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -65,6 +67,20 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
                     @Override
                     public void execute() {
                         controlleur.updateMolette();
+                    }
+                });
+            }
+        });
+
+        bt_start.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setChanged();
+                MetronomeViewImpl.this.notifyObservers(new Command() {
+
+                    @Override
+                    public void execute() {
+                        controlleur.startMetronome();
                     }
                 });
             }

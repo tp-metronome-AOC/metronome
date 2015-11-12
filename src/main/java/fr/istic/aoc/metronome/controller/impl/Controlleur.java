@@ -36,6 +36,12 @@ public class Controlleur implements IControlleur, Observer {
     }
 
     @Override
+    public void startMetronome() {moteur.start();}
+
+    @Override
+    public void stopMetronome() {moteur.stop();}
+
+    @Override
     public void update(Observable o, Object arg) {
         ((Command) arg).execute();
     }
