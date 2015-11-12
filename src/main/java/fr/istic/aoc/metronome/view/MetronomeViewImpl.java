@@ -11,7 +11,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
@@ -92,5 +96,17 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
     @Override
     public void setValueBpm(Integer value) {
         lbl_bpm.setText(value.toString());
+    }
+
+    private  void playSound(String fileName) throws Exception
+    {
+        // open the sound file as a Java input stream
+        InputStream in = new FileInputStream(fileName);
+
+        // create an audiostream from the inputstream
+        AudioStream audioStream = new AudioStream(in);
+
+        // play the audio clip with the audioplayer class
+        AudioPlayer.player.start(audioStream);
     }
 }
