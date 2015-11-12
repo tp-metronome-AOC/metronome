@@ -77,8 +77,7 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
     }
 
     @Override
-    public void marquerTemps() {
-
+    public void marquerTemps() {    
     }
 
     @Override

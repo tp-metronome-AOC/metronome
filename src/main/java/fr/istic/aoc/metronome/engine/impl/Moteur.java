@@ -2,6 +2,7 @@ package fr.istic.aoc.metronome.engine.impl;
 
 import fr.istic.aoc.metronome.command.Command;
 import fr.istic.aoc.metronome.command.CommandMoteurEnum;
+import fr.istic.aoc.metronome.command.TypeEventMarquage;
 import fr.istic.aoc.metronome.engine.IClock;
 import fr.istic.aoc.metronome.engine.IMoteur;
 
@@ -19,6 +20,15 @@ public class Moteur implements IMoteur {
         bpm = 10;
         bpmMesure = 4;
         clock = new Clock();
+
+        clock.setCommand(TypeEventMarquage.MARQUERTEMPS, new Command() {
+            @Override
+            public void execute() {
+                mapCommand.get(CommandMoteurEnum.MarquerTemps).execute();
+            }
+        });
+        clock.activatePeriodically(1);
+
     }
 
     @Override

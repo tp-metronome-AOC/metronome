@@ -2,6 +2,8 @@ package fr.istic.aoc.metronome;
 
 import fr.istic.aoc.metronome.controller.IControlleur;
 import fr.istic.aoc.metronome.controller.impl.Controlleur;
+import fr.istic.aoc.metronome.engine.impl.Clock;
+import fr.istic.aoc.metronome.engine.impl.Moteur;
 import fr.istic.aoc.metronome.view.IView;
 import fr.istic.aoc.metronome.view.MetronomeViewImpl;
 import javafx.application.Application;

@@ -24,15 +24,8 @@ public class Controlleur implements IControlleur, Observer {
         view.setControlleur(this);
 
         moteur = new Moteur();
-        IClock clock = new Clock();
-        clock.setCommand(TypeEventMarquage.MARQUERMESURE, view::marquerMesure);
-        clock.setCommand(TypeEventMarquage.MARQUERMESURE, view::marquerTemps);
-        moteur.addCommand(CommandMoteurEnum.UpdateBpm, new Command() {
-            @Override
-            public void execute() {
-                view.setValueBpm(moteur.getBPM());
-            }
-        });
+        moteur.addCommand(CommandMoteurEnum.MarquerTemps, () -> view.marquerTemps());
+        moteur.addCommand(CommandMoteurEnum.UpdateBpm, () -> view.setValueBpm(moteur.getBPM()));
     }
 
     public void onBpmChanged() {
