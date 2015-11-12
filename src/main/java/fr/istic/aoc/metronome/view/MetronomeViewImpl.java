@@ -61,12 +61,7 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
             @Override
             public void changed(ObservableValue arg0, Object arg1, Object arg2) {
                 setChanged();
-                MetronomeViewImpl.this.notifyObservers(new Command() {
-                    @Override
-                    public void execute() {
-                        controlleur.updateMolette();
-                    }
-                });
+                notifyObservers((Command) () -> controlleur.updateMolette());
             }
         });
 
@@ -77,7 +72,7 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
     }
 
     @Override
-    public void marquerTemps() {    
+    public void marquerTemps() {
     }
 
     @Override
