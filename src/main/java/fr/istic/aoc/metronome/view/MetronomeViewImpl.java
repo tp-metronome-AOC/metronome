@@ -24,6 +24,9 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
     private final int BPM_SELECTOR_MIN = 60;
     private final int BPM_SELECTOR_MAX = 180;
 
+    private final String AUDIO_TEMPS    = "resources/snare.wav";
+    private final String AUDIO_MESURE   = "resources/kick.wav";
+
     IControlleur controlleur;
 
     /*
