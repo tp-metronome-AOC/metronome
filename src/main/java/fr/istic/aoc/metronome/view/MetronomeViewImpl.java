@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
@@ -30,8 +31,8 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
     private final int BPM_SELECTOR_MIN = 60;
     private final int BPM_SELECTOR_MAX = 180;
 
-    private final String AUDIOFILE_TEMPS    = "resources/snare.wav";
-    private final String AUDIOFILE_MESURE   = "resources/kick.wav";
+    private final String AUDIOFILE_TEMPS    = "/snare.wav";
+    private final String AUDIOFILE_MESURE   = "/kick.wav";
 
     IControlleur controlleur;
 
@@ -65,32 +66,14 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        sdr_tempoSelector.valueProperty().addListener(new ChangeListener() {
-
-            @Override
-            public void changed(ObservableValue arg0, Object arg1, Object arg2) {
-                setChanged();
-                MetronomeViewImpl.this.notifyObservers(new Command() {
-                    @Override
-                    public void execute() {
-                        controlleur.updateMolette();
-                    }
-                });
-            }
+        sdr_tempoSelector.valueProperty().addListener((arg0, arg1, arg2) -> {
+            setChanged();
+            notifyObservers((Command) () -> controlleur.updateMolette());
         });
 
-        bt_start.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                setChanged();
-                MetronomeViewImpl.this.notifyObservers(new Command() {
-
-                    @Override
-                    public void execute() {
-                        controlleur.startMetronome();
-                    }
-                });
-            }
+        bt_start.setOnAction(event -> {
+            setChanged();
+           notifyObservers((Command) () -> controlleur.startMetronome());
         });
 
         led_led1.setFill(Color.GREEN);
@@ -101,12 +84,18 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
 
     @Override
     public void marquerTemps() {
-
+        led_led1.setFill(Paint.valueOf("limegreen"));
+        playSound(AUDIOFILE_TEMPS);
+        pause();
+        led_led1.setFill(Paint.valueOf("DARKGREEN"));
     }
 
     @Override
     public void marquerMesure() {
-
+        led_led2.setFill(Paint.valueOf("tomato"));
+        playSound(AUDIOFILE_MESURE);
+        pause();
+        led_led2.setFill(Paint.valueOf("DARKRED"));
     }
 
     public void setControlleur(IControlleur controlleur) {
@@ -118,11 +107,29 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
         return sdr_tempoSelector.getValue();
     }
 
+    @Override
+    public void setValueBpm(Integer value) {
+        lbl_bpm.setText(value.toString());
+    }
 
-    private void playSound(String audioFilename) throws IOException
+
+    private void playSound(String audioFilename)
     {
+        AudioStream audioStream=null;
         InputStream inputStream = getClass().getResourceAsStream(audioFilename);
-        AudioStream audioStream = new AudioStream(inputStream);
+        try {
+            audioStream = new AudioStream(inputStream);
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
         AudioPlayer.player.start(audioStream);
+    }
+
+    private void pause(){
+        try {
+            Thread.sleep(100);
+        }catch(Exception e){
+
+        }
     }
 }

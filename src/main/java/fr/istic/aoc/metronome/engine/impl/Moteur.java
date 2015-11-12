@@ -1,16 +1,21 @@
 package fr.istic.aoc.metronome.engine.impl;
 
+import fr.istic.aoc.metronome.command.Command;
+import fr.istic.aoc.metronome.command.CommandMoteur;
 import fr.istic.aoc.metronome.command.TypeEventMarquage;
 import fr.istic.aoc.metronome.engine.IClock;
 import fr.istic.aoc.metronome.engine.IMoteur;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 
-public class Moteur extends Observable implements IMoteur  {
+public class Moteur implements IMoteur  {
 
     private Integer bpm;
     private Integer bpmMesure;
     private IClock clock;
+    Map<CommandMoteur,Command> mapCommand = new HashMap<CommandMoteur,Command>();
 
     private int currentTime = 0;
 
@@ -19,8 +24,7 @@ public class Moteur extends Observable implements IMoteur  {
         bpmMesure = 4;
         clock = new Clock();
 
-        clock.setCommand(TypeEventMarquage.MARQUERTEMPS, this::tickTemps);
-        clock.setCommand(TypeEventMarquage.MARQUERMESURE, this::tickMesure);
+        clock.setCommand(TypeEventMarquage.MARQUERTEMPS, () -> tick());
     }
 
     @Override
@@ -31,6 +35,7 @@ public class Moteur extends Observable implements IMoteur  {
     @Override
     public void setBPM(Integer bpm) {
         this.bpm = bpm;
+        mapCommand.get(CommandMoteur.UpdateBpm).execute();
     }
 
     @Override
@@ -47,33 +52,20 @@ public class Moteur extends Observable implements IMoteur  {
     public void tick() {
         // Increase the current time
         currentTime++;
-
         // If we are on a strong time
         if (currentTime%bpmMesure == 0) {
-            tickMesure();
+            mapCommand.get(CommandMoteur.MarquerMesure).execute();
         }
         else {
-            tickTemps();
+            mapCommand.get(CommandMoteur.MarquerTemps).execute();
         }
-    }
-
-    @Override
-    public void tickTemps() {
-        hasChanged();
-        notifyObservers();
-    }
-
-    @Override
-    public void tickMesure() {
-        hasChanged();
-        notifyObservers();
     }
 
     @Override
     public void start() {
         currentTime = 0;
-        int intervalInMs = 60/bpm*1000;
-        clock.init(intervalInMs);
+        int intervalInMs = (int)(60/(double)bpm*1000);
+        clock.activatePeriodically(intervalInMs);
     }
 
     @Override
@@ -81,5 +73,9 @@ public class Moteur extends Observable implements IMoteur  {
 
     }
 
+    @Override
+    public void addCommand(CommandMoteur commandMoteur,Command command){
+        mapCommand.put(commandMoteur,command);
+    }
 
 }

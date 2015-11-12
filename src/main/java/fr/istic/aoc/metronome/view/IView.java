@@ -15,4 +15,6 @@ public interface IView {
     void setControlleur(IControlleur controlleur);
 
     double getPositionMolette();
+
+    void setValueBpm(Integer value);
 }

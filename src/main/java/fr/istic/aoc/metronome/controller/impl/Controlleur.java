@@ -1,6 +1,7 @@
 package fr.istic.aoc.metronome.controller.impl;
 
 import fr.istic.aoc.metronome.command.Command;
+import fr.istic.aoc.metronome.command.CommandMoteur;
 import fr.istic.aoc.metronome.command.TypeEventMarquage;
 import fr.istic.aoc.metronome.controller.IControlleur;
 import fr.istic.aoc.metronome.engine.IClock;
@@ -23,9 +24,9 @@ public class Controlleur implements IControlleur, Observer {
         view.setControlleur(this);
 
         moteur = new Moteur();
-        IClock clock = new Clock();
-        clock.setCommand(TypeEventMarquage.MARQUERMESURE, view::marquerMesure);
-        clock.setCommand(TypeEventMarquage.MARQUERMESURE, view::marquerTemps);
+        moteur.addCommand(CommandMoteur.UpdateBpm, () -> view.setValueBpm(moteur.getBPM()));
+        moteur.addCommand(CommandMoteur.MarquerTemps, () -> view.marquerTemps());
+        moteur.addCommand(CommandMoteur.MarquerMesure, () -> view.marquerMesure());
     }
 
     public void onBpmChanged() {
