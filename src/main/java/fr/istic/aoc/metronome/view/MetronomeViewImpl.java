@@ -94,4 +94,9 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
     public double getPositionMolette() {
         return sdr_tempoSelector.getValue();
     }
+
+    @Override
+    public void setValueBpm(Integer value) {
+        lbl_bpm.setText(value.toString());
+    }
 }
