@@ -12,6 +12,8 @@ public class Moteur extends Observable implements IMoteur  {
     private Integer bpmMesure;
     private IClock clock;
 
+    private int currentTime = 0;
+
     public Moteur() {
         bpm = 10;
         bpmMesure = 4;
@@ -42,6 +44,20 @@ public class Moteur extends Observable implements IMoteur  {
     }
 
     @Override
+    public void tick() {
+        // Increase the current time
+        currentTime++;
+
+        // If we are on a strong time
+        if (currentTime%bpmMesure == 0) {
+            tickMesure();
+        }
+        else {
+            tickTemps();
+        }
+    }
+
+    @Override
     public void tickTemps() {
         hasChanged();
         notifyObservers();
@@ -55,12 +71,9 @@ public class Moteur extends Observable implements IMoteur  {
 
     @Override
     public void start() {
+        currentTime = 0;
         int intervalInMs = 60/bpm*1000;
         clock.init(intervalInMs);
-
-        clock.setInterval(() -> {
-            this.tickMesure();
-        }, intervalInMs);
     }
 
     @Override

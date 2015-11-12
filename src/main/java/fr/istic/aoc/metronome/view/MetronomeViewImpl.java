@@ -13,7 +13,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
@@ -25,6 +29,9 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
 
     private final int BPM_SELECTOR_MIN = 60;
     private final int BPM_SELECTOR_MAX = 180;
+
+    private final String AUDIOFILE_TEMPS    = "resources/snare.wav";
+    private final String AUDIOFILE_MESURE   = "resources/kick.wav";
 
     IControlleur controlleur;
 
@@ -109,5 +116,13 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
     @Override
     public double getPositionMolette() {
         return sdr_tempoSelector.getValue();
+    }
+
+
+    private void playSound(String audioFilename) throws IOException
+    {
+        InputStream inputStream = getClass().getResourceAsStream(audioFilename);
+        AudioStream audioStream = new AudioStream(inputStream);
+        AudioPlayer.player.start(audioStream);
     }
 }

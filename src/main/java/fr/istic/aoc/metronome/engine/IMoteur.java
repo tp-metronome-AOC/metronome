@@ -10,6 +10,7 @@ public interface IMoteur {
     Integer getBPMesure();
     void setBPMesure(Integer bpm);
 
+    void tick();
     void tickTemps();
     void tickMesure();
 
