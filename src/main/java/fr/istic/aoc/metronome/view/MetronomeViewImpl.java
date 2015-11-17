@@ -135,6 +135,11 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
     }
 
     @Override
+    public double getMiddleMoletteValue() {
+        return sdr_tempoSelector.getMax() - sdr_tempoSelector.getMin();
+    }
+
+    @Override
     public void setValueBpm(Integer value) {
         lbl_bpm.setText(value.toString());
     }

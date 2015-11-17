@@ -56,14 +56,14 @@ public class Moteur implements IMoteur  {
     @Override
     public void tick() {
         if(started) {
-            // Increase the current time
-            currentTime++;
             // If we are on a strong time
             if (currentTime % bpmMesure == 0) {
                 mapCommand.get(CommandMoteur.MarquerMesure).execute();
             } else {
                 mapCommand.get(CommandMoteur.MarquerTemps).execute();
             }
+            // Increase the current time
+            currentTime++;
         }
     }
 
@@ -71,7 +71,7 @@ public class Moteur implements IMoteur  {
     public void start() {
         started=true;
         currentTime = 0;
-        int intervalInMs = (int)(60/(double)bpm*1000);
+        int intervalInMs = (int) (60/(double)bpm*1000);
         clock.activateAfterDelay(intervalInMs);
     }
 
