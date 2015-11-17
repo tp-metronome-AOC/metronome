@@ -2,10 +2,6 @@ package fr.istic.aoc.metronome.view;
 
 import fr.istic.aoc.metronome.command.Command;
 import fr.istic.aoc.metronome.controller.IControlleur;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -31,8 +27,8 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
     private final int BPM_SELECTOR_MIN = 60;
     private final int BPM_SELECTOR_MAX = 180;
 
-    private final String AUDIOFILE_TEMPS    = "/snare.wav";
-    private final String AUDIOFILE_MESURE   = "/kick.wav";
+    private final static String AUDIOFILE_TEMPS    = "/kick.wav";
+    private final static String AUDIOFILE_MESURE   = "/snare.wav";
 
     IControlleur controlleur;
 
