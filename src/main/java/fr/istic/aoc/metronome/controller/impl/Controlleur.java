@@ -38,6 +38,11 @@ public class Controlleur implements IControlleur, Observer {
     public void initMolette(){
         view.setPositionMoletteToMiddle();
         updateMolette();
+        applyMolette();
+    }
+
+    public void applyMolette() {
+        moteur.applyBPM();
     }
 
     public void updateMolette() {

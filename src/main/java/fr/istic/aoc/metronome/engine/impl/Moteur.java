@@ -37,6 +37,11 @@ public class Moteur implements IMoteur  {
     public void setBPM(Integer bpm) {
         this.bpm = bpm;
         mapCommand.get(CommandMoteur.UpdateBpm).execute();
+
+    }
+
+    @Override
+    public void applyBPM() {
         //when the bpm changed, we  synchronize with the clock
         if(started) {
             start();

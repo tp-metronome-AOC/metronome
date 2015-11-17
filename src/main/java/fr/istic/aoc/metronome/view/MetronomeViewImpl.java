@@ -82,8 +82,12 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
             notifyObservers((Command) () -> controlleur.updateMolette());
         });
 
-        bt_start.setOnAction(event -> {
+        sdr_tempoSelector.setOnMouseReleased(event -> {
             setChanged();
+            notifyObservers((Command) () -> controlleur.applyMolette());
+        });
+
+        bt_start.setOnAction(event -> {setChanged();
            notifyObservers((Command) () -> controlleur.startMetronome());
         });
 

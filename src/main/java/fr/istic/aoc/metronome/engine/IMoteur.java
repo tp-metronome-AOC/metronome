@@ -7,6 +7,7 @@ import fr.istic.aoc.metronome.command.TypeEventMarquage;
 public interface IMoteur {
     Integer getBPM();
     void setBPM(Integer bpm);
+    void applyBPM();
 
     Integer getBPMesure();
     void setBPMesure(Integer bpm);
