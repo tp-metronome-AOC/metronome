@@ -8,14 +8,15 @@ import fr.istic.aoc.metronome.engine.IMoteur;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
 
 public class Moteur implements IMoteur  {
 
     private Integer bpm;
     private Integer bpmMesure;
     private IClock clock;
-    Map<CommandMoteur,Command> mapCommand = new HashMap<CommandMoteur,Command>();
+    private Map<CommandMoteur,Command> mapCommand = new HashMap<CommandMoteur,Command>();
+    //indicate if the engine is started
+    private boolean started;
 
     private int currentTime = 0;
 
@@ -24,7 +25,7 @@ public class Moteur implements IMoteur  {
         bpmMesure = 4;
         clock = new Clock();
 
-        clock.setCommand(TypeEventMarquage.MARQUERTEMPS, () -> tick());
+        clock.setCommand(TypeEventMarquage.TICK, () -> tick());
     }
 
     @Override
@@ -36,6 +37,8 @@ public class Moteur implements IMoteur  {
     public void setBPM(Integer bpm) {
         this.bpm = bpm;
         mapCommand.get(CommandMoteur.UpdateBpm).execute();
+        //when the bpm changed, we  synchronize with the clock
+        start();
     }
 
     @Override
@@ -50,27 +53,29 @@ public class Moteur implements IMoteur  {
 
     @Override
     public void tick() {
-        // Increase the current time
-        currentTime++;
-        // If we are on a strong time
-        if (currentTime%bpmMesure == 0) {
-            mapCommand.get(CommandMoteur.MarquerMesure).execute();
-        }
-        else {
-            mapCommand.get(CommandMoteur.MarquerTemps).execute();
+        if(started) {
+            // Increase the current time
+            currentTime++;
+            // If we are on a strong time
+            if (currentTime % bpmMesure == 0) {
+                mapCommand.get(CommandMoteur.MarquerMesure).execute();
+            } else {
+                mapCommand.get(CommandMoteur.MarquerTemps).execute();
+            }
         }
     }
 
     @Override
     public void start() {
+        started=true;
         currentTime = 0;
         int intervalInMs = (int)(60/(double)bpm*1000);
-        clock.activatePeriodically(intervalInMs);
+        clock.activateAfterDelay(intervalInMs);
     }
 
     @Override
     public void stop() {
-
+        started=false;
     }
 
     @Override

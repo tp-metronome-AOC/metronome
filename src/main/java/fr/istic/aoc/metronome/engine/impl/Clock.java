@@ -3,7 +3,6 @@ package fr.istic.aoc.metronome.engine.impl;
 import fr.istic.aoc.metronome.command.Command;
 import fr.istic.aoc.metronome.command.TypeEventMarquage;
 import fr.istic.aoc.metronome.engine.IClock;
-import jdk.nashorn.internal.objects.NativeArray;
 
 import java.util.HashMap;
 import java.util.concurrent.Executors;
@@ -22,8 +21,13 @@ public class Clock implements IClock{
 
     @Override
     public void activatePeriodically(Integer time) {
+           }
+
+    @Override
+    public void activateAfterDelay(Integer time) {
         if(s!=null){s.shutdown();}
         s = Executors.newScheduledThreadPool(1);
-        s.scheduleAtFixedRate((Runnable) () -> mapEventCommand.get(TypeEventMarquage.MARQUERTEMPS).execute(),0,time, TimeUnit.MILLISECONDS);
+        s.scheduleAtFixedRate((Runnable) () -> mapEventCommand.get(TypeEventMarquage.TICK).execute(),0,time, TimeUnit.MILLISECONDS);
+
     }
 }

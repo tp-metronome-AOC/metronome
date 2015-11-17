@@ -87,6 +87,11 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
            notifyObservers((Command) () -> controlleur.startMetronome());
         });
 
+        bt_stop.setOnAction(event -> {
+            setChanged();
+            notifyObservers((Command) () -> controlleur.stopMetronome());
+        });
+
         led_led1.setFill(Color.GREEN);
 
         sdr_tempoSelector.setMin(BPM_SELECTOR_MIN);
