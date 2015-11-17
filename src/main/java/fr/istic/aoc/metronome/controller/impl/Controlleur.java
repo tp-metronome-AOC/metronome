@@ -29,14 +29,14 @@ public class Controlleur implements IControlleur, Observer {
         moteur.addCommand(CommandMoteur.MarquerMesure, () -> view.marquerMesure());
 
         // Initialize molette
-        updateMolette();
+        initMolette();
     }
 
     public void onBpmChanged() {
     }
 
     public void initMolette(){
-        view.getMiddleMoletteValue();
+        view.setPositionMoletteToMiddle();
         updateMolette();
     }
 

@@ -16,7 +16,7 @@ public interface IView {
 
     double getPositionMolette();
 
-    double getMiddleMoletteValue();
+    void setPositionMoletteToMiddle();
 
     void setValueBpm(Integer value);
 }
