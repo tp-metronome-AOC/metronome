@@ -24,7 +24,6 @@ public class Moteur implements IMoteur  {
         bpm = 10;
         bpmMesure = 4;
         clock = new Clock();
-
         clock.setCommand(TypeEventMarquage.TICK, () -> tick());
     }
 

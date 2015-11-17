@@ -7,6 +7,7 @@ import fr.istic.aoc.metronome.engine.IClock;
 import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 public class Clock implements IClock{
@@ -28,6 +29,5 @@ public class Clock implements IClock{
         if(s!=null){s.shutdown();}
         s = Executors.newScheduledThreadPool(1);
         s.scheduleAtFixedRate((Runnable) () -> mapEventCommand.get(TypeEventMarquage.TICK).execute(),0,time, TimeUnit.MILLISECONDS);
-
     }
 }
