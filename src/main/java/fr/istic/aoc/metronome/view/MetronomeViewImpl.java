@@ -2,20 +2,23 @@ package fr.istic.aoc.metronome.view;
 
 import fr.istic.aoc.metronome.command.Command;
 import fr.istic.aoc.metronome.controller.IControlleur;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
-import java.io.FileInputStream;
+
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+
 import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
@@ -28,8 +31,11 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
     private final int BPM_SELECTOR_MIN = 60;
     private final int BPM_SELECTOR_MAX = 180;
 
-    private final String AUDIO_TEMPS    = "resources/snare.wav";
-    private final String AUDIO_MESURE   = "resources/kick.wav";
+    private final static String AUDIOFILE_TEMPS    = "file:./src/main/resources/kick.wav";
+    private final static String AUDIOFILE_MESURE   = "file:./src/main/resources/snare.wav";
+
+    private static AudioClip AUDIO_CLIP_TEMPS;
+    private static AudioClip AUDIO_CLIP_MESURE;
 
     IControlleur controlleur;
 
@@ -63,13 +69,22 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        sdr_tempoSelector.valueProperty().addListener(new ChangeListener() {
 
-            @Override
-            public void changed(ObservableValue arg0, Object arg1, Object arg2) {
-                setChanged();
-                notifyObservers((Command) () -> controlleur.updateMolette());
-            }
+        try {
+            AUDIO_CLIP_TEMPS = new AudioClip(new URL(AUDIOFILE_TEMPS).toString());
+            AUDIO_CLIP_MESURE = new AudioClip(new URL(AUDIOFILE_MESURE).toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        sdr_tempoSelector.valueProperty().addListener((arg0, arg1, arg2) -> {
+            setChanged();
+            notifyObservers((Command) () -> controlleur.updateMolette());
+        });
+
+        bt_start.setOnAction(event -> {
+            setChanged();
+           notifyObservers((Command) () -> controlleur.startMetronome());
         });
 
         led_led1.setFill(Color.GREEN);
@@ -80,11 +95,18 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
 
     @Override
     public void marquerTemps() {
+        led_led1.setFill(Paint.valueOf("limegreen"));
+        playSound(AUDIO_CLIP_TEMPS);
+        pause();
+        led_led1.setFill(Paint.valueOf("DARKGREEN"));
     }
 
     @Override
     public void marquerMesure() {
-
+        led_led2.setFill(Paint.valueOf("tomato"));
+        playSound(AUDIO_CLIP_MESURE);
+        pause();
+        led_led2.setFill(Paint.valueOf("DARKRED"));
     }
 
     public void setControlleur(IControlleur controlleur) {
@@ -101,15 +123,16 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
         lbl_bpm.setText(value.toString());
     }
 
-    private  void playSound(String fileName) throws Exception
+    private void playSound(AudioClip clip)
     {
-        // open the sound file as a Java input stream
-        InputStream in = new FileInputStream(fileName);
+        clip.play();
+    }
 
-        // create an audiostream from the inputstream
-        AudioStream audioStream = new AudioStream(in);
+    private void pause(){
+        try {
+            Thread.sleep(100);
+        }catch(Exception e){
 
-        // play the audio clip with the audioplayer class
-        AudioPlayer.player.start(audioStream);
+        }
     }
 }
