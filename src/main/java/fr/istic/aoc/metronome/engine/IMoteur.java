@@ -16,4 +16,6 @@ public interface IMoteur {
     void start();
     void stop();
     void addCommand(CommandMoteur commandMoteur, Command command);
+    void incr();
+    void decr();
 }

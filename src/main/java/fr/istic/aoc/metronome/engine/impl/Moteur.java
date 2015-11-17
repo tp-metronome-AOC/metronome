@@ -38,7 +38,9 @@ public class Moteur implements IMoteur  {
         this.bpm = bpm;
         mapCommand.get(CommandMoteur.UpdateBpm).execute();
         //when the bpm changed, we  synchronize with the clock
-        start();
+        if(started) {
+            start();
+        }
     }
 
     @Override
@@ -81,5 +83,21 @@ public class Moteur implements IMoteur  {
     @Override
     public void addCommand(CommandMoteur commandMoteur,Command command){
         mapCommand.put(commandMoteur,command);
+    }
+
+    @Override
+    public void incr() {
+        bpmMesure++;
+        if(bpmMesure>7){
+            bpmMesure = 7;
+        }
+    }
+
+    @Override
+    public void decr() {
+        bpmMesure--;
+        if(bpmMesure<2){
+            bpmMesure = 2;
+        }
     }
 }
