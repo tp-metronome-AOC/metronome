@@ -42,7 +42,7 @@ public class Moteur implements IMoteur  {
     public void applyBPM() {
         //when the bpm changed, we  synchronize with the clock
         if(started) {
-            start();
+            applyInterval();
         }
     }
 
@@ -74,6 +74,10 @@ public class Moteur implements IMoteur  {
     public void start() {
         started=true;
         currentTime = 0;
+        applyInterval();
+    }
+
+    private void applyInterval() {
         int intervalInMs = (int) (60/(double)bpm*1000);
         clock.activateAfterDelay(intervalInMs);
     }

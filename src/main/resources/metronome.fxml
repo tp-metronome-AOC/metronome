@@ -28,7 +28,7 @@
                   <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Circle fx:id="led_led1" fill="DARKGREEN" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label text="LED 1">
+                        <Label text="TIC">
                            <padding>
                               <Insets left="10.0" />
                            </padding></Label>
@@ -40,7 +40,7 @@
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Circle fx:id="led_led2" fill="DARKRED" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label text="LED 2">
+                        <Label text="TAC">
                            <padding>
                               <Insets left="10.0" />
                            </padding></Label>

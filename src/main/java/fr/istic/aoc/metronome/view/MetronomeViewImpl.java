@@ -118,18 +118,18 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
 
     @Override
     public void marquerTemps() {
-        led_led1.setFill(Paint.valueOf("limegreen"));
+        led_led2.setFill(Paint.valueOf("tomato"));
         playSound(AUDIO_CLIP_TEMPS);
         pause();
-        led_led1.setFill(Paint.valueOf("DARKGREEN"));
+        led_led2.setFill(Paint.valueOf("DARKRED"));
     }
 
     @Override
     public void marquerMesure() {
-        led_led2.setFill(Paint.valueOf("tomato"));
+        led_led1.setFill(Paint.valueOf("limegreen"));
         playSound(AUDIO_CLIP_MESURE);
         pause();
-        led_led2.setFill(Paint.valueOf("DARKRED"));
+        led_led1.setFill(Paint.valueOf("DARKGREEN"));
     }
 
     public void setControlleur(IControlleur controlleur) {
