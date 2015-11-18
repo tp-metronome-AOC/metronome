@@ -2,7 +2,6 @@ package fr.istic.aoc.metronome;
 
 import fr.istic.aoc.metronome.command.Command;
 import fr.istic.aoc.metronome.command.CommandMoteur;
-import fr.istic.aoc.metronome.engine.IMoteur;
 import fr.istic.aoc.metronome.engine.impl.Clock;
 import fr.istic.aoc.metronome.engine.impl.Moteur;
 import static org.junit.Assert.*;
@@ -69,7 +68,7 @@ public class MoteurTest {
     public void testStart(){
         moteur.setBPM(100);
         moteur.start();
-        Mockito.verify(clock).activateAfterDelay(caluclateDelay(moteur.getBPM()));
+        Mockito.verify(clock).startClock(caluclateDelay(moteur.getBPM()));
     }
 
     private int caluclateDelay(int bpm){

@@ -29,7 +29,7 @@ public class Clock implements IClock{
     }
 
     @Override
-    public void activateAfterDelay(Integer time) {
+    public void startClock(Integer time) {
         if(sf != null) {
             sf.cancel(false);
         }

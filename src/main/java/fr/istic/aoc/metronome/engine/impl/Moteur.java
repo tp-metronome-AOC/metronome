@@ -79,7 +79,7 @@ public class Moteur implements IMoteur  {
 
     private void applyInterval() {
         int intervalInMs = (int) (60/(double)bpm*1000);
-        clock.activateAfterDelay(intervalInMs);
+        clock.startClock(intervalInMs);
     }
 
     @Override
