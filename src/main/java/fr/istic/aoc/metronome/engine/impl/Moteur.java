@@ -36,9 +36,13 @@ public class Moteur implements IMoteur  {
     public void setBPM(Integer bpm) {
         this.bpm = bpm;
         mapCommand.get(CommandMoteur.UpdateBpm).execute();
+    }
+
+    @Override
+    public void applyBPM() {
         //when the bpm changed, we  synchronize with the clock
         if(started) {
-            start();
+            applyInterval();
         }
     }
 
@@ -70,6 +74,10 @@ public class Moteur implements IMoteur  {
     public void start() {
         started=true;
         currentTime = 0;
+        applyInterval();
+    }
+
+    private void applyInterval() {
         int intervalInMs = (int) (60/(double)bpm*1000);
         clock.activateAfterDelay(intervalInMs);
     }
@@ -85,11 +93,18 @@ public class Moteur implements IMoteur  {
     }
 
     @Override
+    public void initBpMesure() {
+        mapCommand.get(CommandMoteur.UpdateSignature).execute();
+    }
+
+    @Override
     public void incr() {
         bpmMesure++;
         if(bpmMesure>7){
             bpmMesure = 7;
         }
+        mapCommand.get(CommandMoteur.UpdateSignature).execute();
+
     }
 
     @Override
@@ -98,5 +113,7 @@ public class Moteur implements IMoteur  {
         if(bpmMesure<2){
             bpmMesure = 2;
         }
+        mapCommand.get(CommandMoteur.UpdateSignature).execute();
+
     }
 }

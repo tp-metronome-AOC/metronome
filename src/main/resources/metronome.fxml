@@ -15,7 +15,7 @@
                   <Insets left="50.0" right="50.0" />
                </padding>
             </Slider>
-            <Label style="-fx-min-width:150; -fx-text-alignment:center; -fx-font-size: 39.0;" text="120" textAlignment="CENTER" fx:id="lbl_bpm">
+            <Label fx:id="lbl_bpm" style="-fx-min-width:150; -fx-text-alignment:center; -fx-font-size: 39.0;" text="120" textAlignment="CENTER">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -28,7 +28,7 @@
                   <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Circle fx:id="led_led1" fill="DARKGREEN" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label text="LED 1">
+                        <Label text="TIC">
                            <padding>
                               <Insets left="10.0" />
                            </padding></Label>
@@ -40,7 +40,7 @@
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Circle fx:id="led_led2" fill="DARKRED" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label text="LED 2">
+                        <Label text="TAC">
                            <padding>
                               <Insets left="10.0" />
                            </padding></Label>
@@ -68,12 +68,17 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="bt_increase" mnemonicParsing="false" text="INC" HBox.hgrow="ALWAYS">
+            <Button fx:id="bt_decrease" mnemonicParsing="false" text="DEC" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="bt_decrease" mnemonicParsing="false" text="DEC" HBox.hgrow="ALWAYS">
+            <Label fx:id="lbl_signature" alignment="CENTER" contentDisplay="CENTER" text="...    " textAlignment="CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+            <Button fx:id="bt_increase" mnemonicParsing="false" text="INC" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>

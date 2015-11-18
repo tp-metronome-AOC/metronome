@@ -11,14 +11,8 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
 
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
-
 import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
@@ -47,6 +41,9 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
 
     @FXML
     public Label lbl_bpm;
+
+    @FXML
+    public Label lbl_signature;
 
     @FXML
     public Circle led_led1;
@@ -82,8 +79,12 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
             notifyObservers((Command) () -> controlleur.updateMolette());
         });
 
-        bt_start.setOnAction(event -> {
+        sdr_tempoSelector.setOnMouseReleased(event -> {
             setChanged();
+            notifyObservers((Command) () -> controlleur.applyMolette());
+        });
+
+        bt_start.setOnAction(event -> {setChanged();
            notifyObservers((Command) () -> controlleur.startMetronome());
         });
 
@@ -114,10 +115,10 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
      */
     @Override
     public void marquerTemps() {
-        led_led1.setFill(Paint.valueOf("limegreen"));
+        led_led2.setFill(Paint.valueOf("tomato"));
         playSound(AUDIO_CLIP_TEMPS);
         pause();
-        led_led1.setFill(Paint.valueOf("DARKGREEN"));
+        led_led2.setFill(Paint.valueOf("DARKRED"));
     }
 
     /**
@@ -125,10 +126,10 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
      */
     @Override
     public void marquerMesure() {
-        led_led2.setFill(Paint.valueOf("tomato"));
+        led_led1.setFill(Paint.valueOf("limegreen"));
         playSound(AUDIO_CLIP_MESURE);
         pause();
-        led_led2.setFill(Paint.valueOf("DARKRED"));
+        led_led1.setFill(Paint.valueOf("DARKGREEN"));
     }
 
     /**
@@ -151,8 +152,7 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
      */
     @Override
     public void setPositionMoletteToMiddle() {
-        sdr_tempoSelector.setValue(sdr_tempoSelector.getMax() - sdr_tempoSelector.getMin());
-
+        sdr_tempoSelector.setValue( (sdr_tempoSelector.getMax() + sdr_tempoSelector.getMin()) / 2 );
     }
 
 
@@ -163,6 +163,14 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
     @Override
     public void setValueBpm(Integer value) {
         lbl_bpm.setText(value.toString());
+    }
+
+    /**
+     *  {@inheritDoc}
+     */
+    @Override
+    public void setValueSignature(Integer bpMesure) {
+        lbl_signature.setText(String.valueOf(bpMesure)+"/4" + "    ");
     }
 
     private void playSound(AudioClip clip)

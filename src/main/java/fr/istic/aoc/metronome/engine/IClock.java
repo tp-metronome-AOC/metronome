@@ -5,6 +5,5 @@ import fr.istic.aoc.metronome.command.TypeEventMarquage;
 
 public interface IClock {
     void setCommand(TypeEventMarquage event,Command command);
-    void activatePeriodically(Integer time);
     void activateAfterDelay(Integer time);
 }

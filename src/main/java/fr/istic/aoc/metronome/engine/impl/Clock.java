@@ -16,18 +16,24 @@ public class Clock implements IClock{
 
     private HashMap<TypeEventMarquage,Command> mapEventCommand = new HashMap<TypeEventMarquage,Command>();
     private ScheduledExecutorService s;
+    private ScheduledFuture<?> sf;
+
+
     public void setCommand(TypeEventMarquage event,Command command){
         mapEventCommand.put(event,command);
     };
 
-    @Override
-    public void activatePeriodically(Integer time) {
-           }
+    public Clock(){
+        if(s!=null){s.shutdown();}
+        s = Executors.newScheduledThreadPool(1);
+    }
 
     @Override
     public void activateAfterDelay(Integer time) {
-        if(s!=null){s.shutdown();}
-        s = Executors.newScheduledThreadPool(1);
-        s.scheduleAtFixedRate((Runnable) () -> mapEventCommand.get(TypeEventMarquage.TICK).execute(),0,time, TimeUnit.MILLISECONDS);
+        if(sf != null) {
+            sf.cancel(false);
+        }
+
+        sf = s.scheduleAtFixedRate((Runnable) () -> mapEventCommand.get(TypeEventMarquage.TICK).execute(),0,time, TimeUnit.MILLISECONDS);
     }
 }

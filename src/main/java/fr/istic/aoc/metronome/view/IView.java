@@ -26,4 +26,7 @@ public interface IView {
 
     /** set the bpm value */
     void setValueBpm(Integer value);
+
+    /** set the signature on the view */
+    void setValueSignature(Integer bpMesure);
 }

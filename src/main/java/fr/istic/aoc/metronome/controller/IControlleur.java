@@ -5,6 +5,8 @@ public interface IControlleur {
     public void updateMolette();
     /** Method to start the engine */
     public void startMetronome();
+    /** apply the new bpm on the clock */
+    public void applyMolette();
     /** Method to stop the engine */
     public void stopMetronome();
     /** Method to increase the measure */
