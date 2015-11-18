@@ -21,6 +21,11 @@ public class Clock implements IClock{
         mapEventCommand.put(event,command);
     }
 
+    public Clock(){
+        if(s!=null){s.shutdown();}
+        s = Executors.newScheduledThreadPool(1);
+    }
+
     @Override
     public void startClock(Integer time) {
         if(sf != null) {
