@@ -19,7 +19,7 @@ public class Clock implements IClock{
     private ScheduledExecutorService s;
     public void setCommand(TypeEventMarquage event,Command command){
         mapEventCommand.put(event,command);
-    };
+    }
 
     @Override
     public void startClock(Integer time) {
