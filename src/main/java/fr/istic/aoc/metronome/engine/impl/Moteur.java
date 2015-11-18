@@ -15,7 +15,8 @@ public class Moteur implements IMoteur  {
     private Integer bpmMesure;
     private IClock clock;
     private Map<CommandMoteur,Command> mapCommand = new HashMap<CommandMoteur,Command>();
-    //indicate if the engine is started
+
+    //indicates if the engine is started
     private boolean started;
 
     private int currentTime = 0;
@@ -27,17 +28,26 @@ public class Moteur implements IMoteur  {
         clock.setCommand(TypeEventMarquage.TICK, () -> tick());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Integer getBPM() {
         return bpm;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setBPM(Integer bpm) {
         this.bpm = bpm;
         mapCommand.get(CommandMoteur.UpdateBpm).execute();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void applyBPM() {
         //when the bpm changed, we  synchronize with the clock
@@ -46,16 +56,17 @@ public class Moteur implements IMoteur  {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Integer getBPMesure() {
         return bpmMesure;
     }
 
-    @Override
-    public void setBPMesure(Integer bpm) {
-        this.bpmMesure = bpm;
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void tick() {
         if(started) {
@@ -70,6 +81,9 @@ public class Moteur implements IMoteur  {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         started=true;
@@ -77,26 +91,41 @@ public class Moteur implements IMoteur  {
         applyInterval();
     }
 
+    /**
+     * Applies the new interval to the clock
+     */
     private void applyInterval() {
         int intervalInMs = (int) (60/(double)bpm*1000);
         clock.startClock(intervalInMs);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stop() {
         started=false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addCommand(CommandMoteur commandMoteur,Command command){
         mapCommand.put(commandMoteur,command);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initBpMesure() {
         mapCommand.get(CommandMoteur.UpdateSignature).execute();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void incr() {
         bpmMesure++;
@@ -107,6 +136,9 @@ public class Moteur implements IMoteur  {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void decr() {
         bpmMesure--;

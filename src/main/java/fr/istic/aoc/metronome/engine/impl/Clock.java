@@ -26,13 +26,16 @@ public class Clock implements IClock{
         s = Executors.newScheduledThreadPool(1);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void startClock(Integer time) {
+    public void startClock(Integer timeInMs) {
         if(sf != null) {
             sf.cancel(false);
         }
 
         sf = s.scheduleAtFixedRate(
-                (Runnable) () -> mapEventCommand.get(TypeEventMarquage.TICK).execute(),0,time, TimeUnit.MILLISECONDS);
+                (Runnable) () -> mapEventCommand.get(TypeEventMarquage.TICK).execute(),0, timeInMs, TimeUnit.MILLISECONDS);
     }
 }
