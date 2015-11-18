@@ -27,7 +27,7 @@ public class MetronomeApp extends Application {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResource("/metronome.fxml").openStream());
         IView view = (MetronomeViewImpl) loader.getController();
-        IControlleur controller = new Controlleur(view);
+        new Controlleur(view);
         stage.setTitle("Metronome");
         stage.setScene(new Scene(root, 450, 200));
         stage.setResizable(false);

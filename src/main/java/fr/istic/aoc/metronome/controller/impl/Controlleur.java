@@ -13,6 +13,7 @@ import fr.istic.aoc.metronome.view.IView;
 import java.util.Observable;
 import java.util.Observer;
 
+
 public class Controlleur implements IControlleur, Observer {
 
     private IView view;
