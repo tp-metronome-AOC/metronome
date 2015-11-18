@@ -37,7 +37,6 @@ public class Moteur implements IMoteur  {
     public void setBPM(Integer bpm) {
         this.bpm = bpm;
         mapCommand.get(CommandMoteur.UpdateBpm).execute();
-
     }
 
     @Override
@@ -91,11 +90,18 @@ public class Moteur implements IMoteur  {
     }
 
     @Override
+    public void initBpMesure() {
+        mapCommand.get(CommandMoteur.UpdateSignature).execute();
+    }
+
+    @Override
     public void incr() {
         bpmMesure++;
         if(bpmMesure>7){
             bpmMesure = 7;
         }
+        mapCommand.get(CommandMoteur.UpdateSignature).execute();
+
     }
 
     @Override
@@ -104,5 +110,7 @@ public class Moteur implements IMoteur  {
         if(bpmMesure<2){
             bpmMesure = 2;
         }
+        mapCommand.get(CommandMoteur.UpdateSignature).execute();
+
     }
 }

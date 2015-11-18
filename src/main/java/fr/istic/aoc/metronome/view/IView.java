@@ -19,4 +19,6 @@ public interface IView {
     void setPositionMoletteToMiddle();
 
     void setValueBpm(Integer value);
+
+    void setValueSignature(Integer bpMesure);
 }

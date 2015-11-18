@@ -49,6 +49,9 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
     public Label lbl_bpm;
 
     @FXML
+    public Label lbl_signature;
+
+    @FXML
     public Circle led_led1;
 
     @FXML
@@ -141,12 +144,17 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
 
     @Override
     public void setPositionMoletteToMiddle() {
-        sdr_tempoSelector.setValue(sdr_tempoSelector.getMax() - sdr_tempoSelector.getMin());
+        sdr_tempoSelector.setValue( (sdr_tempoSelector.getMax() + sdr_tempoSelector.getMin()) / 2 );
     }
 
     @Override
     public void setValueBpm(Integer value) {
         lbl_bpm.setText(value.toString());
+    }
+
+    @Override
+    public void setValueSignature(Integer bpMesure) {
+        lbl_signature.setText(String.valueOf(bpMesure)+"/4" + "    ");
     }
 
     private void playSound(AudioClip clip)

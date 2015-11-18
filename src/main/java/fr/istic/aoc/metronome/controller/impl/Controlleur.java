@@ -25,20 +25,25 @@ public class Controlleur implements IControlleur, Observer {
 
         moteur = new Moteur();
         moteur.addCommand(CommandMoteur.UpdateBpm, () -> view.setValueBpm(moteur.getBPM()));
+        moteur.addCommand(CommandMoteur.UpdateSignature, () -> view.setValueSignature(moteur.getBPMesure()));
         moteur.addCommand(CommandMoteur.MarquerTemps, () -> view.marquerTemps());
         moteur.addCommand(CommandMoteur.MarquerMesure, () -> view.marquerMesure());
 
         // Initialize molette
         initMolette();
-    }
 
-    public void onBpmChanged() {
+        // Initialize signature
+        initSignature();
     }
 
     public void initMolette(){
         view.setPositionMoletteToMiddle();
         updateMolette();
         applyMolette();
+    }
+
+    public void initSignature() {
+        moteur.initBpMesure();
     }
 
     public void applyMolette() {
