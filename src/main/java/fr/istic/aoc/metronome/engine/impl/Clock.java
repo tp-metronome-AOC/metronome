@@ -34,6 +34,7 @@ public class Clock implements IClock{
             sf.cancel(false);
         }
 
-        sf = s.scheduleAtFixedRate((Runnable) () -> mapEventCommand.get(TypeEventMarquage.TICK).execute(),0,time, TimeUnit.MILLISECONDS);
+        sf = s.scheduleAtFixedRate(
+                (Runnable) () -> mapEventCommand.get(TypeEventMarquage.TICK).execute(),0,time, TimeUnit.MILLISECONDS);
     }
 }

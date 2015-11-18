@@ -1,7 +1,8 @@
-package fr.istic.aoc.metronome.view;
+package fr.istic.aoc.metronome.view.impl;
 
 import fr.istic.aoc.metronome.command.Command;
 import fr.istic.aoc.metronome.controller.IControlleur;
+import fr.istic.aoc.metronome.view.IView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
