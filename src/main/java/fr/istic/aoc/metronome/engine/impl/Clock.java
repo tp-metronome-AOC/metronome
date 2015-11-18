@@ -13,20 +13,13 @@ import java.util.concurrent.TimeUnit;
 public class Clock implements IClock{
 
     private int intervalInMs = 0;
+    private ScheduledFuture<?> sf;
 
     private HashMap<TypeEventMarquage,Command> mapEventCommand = new HashMap<TypeEventMarquage,Command>();
     private ScheduledExecutorService s;
-    private ScheduledFuture<?> sf;
-
-
     public void setCommand(TypeEventMarquage event,Command command){
         mapEventCommand.put(event,command);
     };
-
-    public Clock(){
-        if(s!=null){s.shutdown();}
-        s = Executors.newScheduledThreadPool(1);
-    }
 
     @Override
     public void startClock(Integer time) {
