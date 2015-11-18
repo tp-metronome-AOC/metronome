@@ -25,6 +25,7 @@ public class Controlleur implements IControlleur, Observer {
         view.setControlleur(this);
 
         moteur = new Moteur();
+        /** Engine Initialization Command.*/
         moteur.addCommand(CommandMoteur.UpdateBpm, () -> view.setValueBpm(moteur.getBPM()));
         moteur.addCommand(CommandMoteur.MarquerTemps, () -> view.marquerTemps());
         moteur.addCommand(CommandMoteur.MarquerMesure, () -> view.marquerMesure());
@@ -33,34 +34,49 @@ public class Controlleur implements IControlleur, Observer {
         initMolette();
     }
 
-    public void onBpmChanged() {
-    }
-
-    public void initMolette(){
+    /** Initialize the position of the molette */
+    private void initMolette(){
         view.setPositionMoletteToMiddle();
         updateMolette();
     }
 
+    /**
+     *  {@inheritDoc}
+     */
+    @Override
     public void updateMolette() {
         moteur.setBPM((int) view.getPositionMolette());
     }
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public void startMetronome() {moteur.start();}
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public void stopMetronome() {moteur.stop();}
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public void increaseMetronome() {
         moteur.incr();
     }
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public void decreaseMetronome() {
         moteur.decr();
     }
 
+    /** execute a command on the engine */
     @Override
     public void update(Observable o, Object arg) {
         ((Command) arg).execute();

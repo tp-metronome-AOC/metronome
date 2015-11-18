@@ -109,6 +109,9 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
         sdr_tempoSelector.setMax(BPM_SELECTOR_MAX);
     }
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public void marquerTemps() {
         led_led1.setFill(Paint.valueOf("limegreen"));
@@ -117,6 +120,9 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
         led_led1.setFill(Paint.valueOf("DARKGREEN"));
     }
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public void marquerMesure() {
         led_led2.setFill(Paint.valueOf("tomato"));
@@ -125,21 +131,35 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
         led_led2.setFill(Paint.valueOf("DARKRED"));
     }
 
+    /**
+     *  {@inheritDoc}
+     */
     public void setControlleur(IControlleur controlleur) {
         this.controlleur = controlleur;
     }
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public double getPositionMolette() {
         return sdr_tempoSelector.getValue();
     }
 
-
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public void setPositionMoletteToMiddle() {
         sdr_tempoSelector.setValue(sdr_tempoSelector.getMax() - sdr_tempoSelector.getMin());
+
     }
 
+
+
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public void setValueBpm(Integer value) {
         lbl_bpm.setText(value.toString());
