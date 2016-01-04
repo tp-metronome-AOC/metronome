@@ -1,5 +1,6 @@
 package fr.istic.aoc.metronome;
 
+import fr.istic.aoc.metronome.adapter.component.impl.Materiel;
 import fr.istic.aoc.metronome.controller.impl.Controlleur;
 import fr.istic.aoc.metronome.view.IView;
 import fr.istic.aoc.metronome.view.impl.MetronomeViewImpl;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 public class MetronomeApp extends Application {
 
     public static void main(String[] args) {
+
         // launch JavaFX application
         Application.launch(args);
     }
@@ -26,6 +28,8 @@ public class MetronomeApp extends Application {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getResource("/metronome.fxml").openStream());
         IView view = (MetronomeViewImpl) loader.getController();
+        new Materiel(view);
+        Materiel.getHorloge().start();
         //we link the controller at the view
         new Controlleur(view);
         stage.setTitle("Metronome");

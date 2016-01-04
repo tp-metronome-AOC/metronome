@@ -12,11 +12,6 @@ public interface IView {
     /** method called by the controller, to indicate a measure is throw by the engine */
     void marquerMesure();
 
-    /** add an observer to the view */
-    void addObserver(Observer o);
-
-    /** set the controller at the view */
-    void setControlleur(IControlleur controlleur);
 
     /** Return the position value of the molette */
     double getPositionMolette();
@@ -29,4 +24,12 @@ public interface IView {
 
     /** set the signature on the view */
     void setValueSignature(Integer bpMesure);
+
+    boolean getStateButtonStart();
+
+    boolean getStateButtonStop();
+
+    boolean getStateButtonIncrease();
+
+    boolean getStateButtonDecrease();
 }

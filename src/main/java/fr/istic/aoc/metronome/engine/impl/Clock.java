@@ -4,7 +4,9 @@ import fr.istic.aoc.metronome.command.Command;
 import fr.istic.aoc.metronome.command.TypeEventMarquage;
 import fr.istic.aoc.metronome.engine.IClock;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -17,6 +19,7 @@ public class Clock implements IClock{
 
     private HashMap<TypeEventMarquage,Command> mapEventCommand = new HashMap<TypeEventMarquage,Command>();
     private ScheduledExecutorService s;
+
     public void setCommand(TypeEventMarquage event,Command command){
         mapEventCommand.put(event,command);
     }
@@ -35,4 +38,6 @@ public class Clock implements IClock{
         sf = s.scheduleAtFixedRate(
                 (Runnable) () -> mapEventCommand.get(TypeEventMarquage.TICK).execute(),0,time, TimeUnit.MILLISECONDS);
     }
+
+
 }

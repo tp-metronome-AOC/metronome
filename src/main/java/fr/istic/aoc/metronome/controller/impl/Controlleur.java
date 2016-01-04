@@ -1,5 +1,7 @@
 package fr.istic.aoc.metronome.controller.impl;
 
+import fr.istic.aoc.metronome.adapter.Adapter;
+import fr.istic.aoc.metronome.adapter.IAdapter;
 import fr.istic.aoc.metronome.command.Command;
 import fr.istic.aoc.metronome.command.CommandMoteur;
 import fr.istic.aoc.metronome.controller.IControlleur;
@@ -13,22 +15,20 @@ import java.util.Observer;
 /**
  * Application main controller
  */
-public class Controlleur implements IControlleur, Observer {
+public class Controlleur implements IControlleur {
 
-    private IView view;
+    private IAdapter adapter;
     private IMoteur moteur;
 
     public Controlleur(IView pView) {
-        view = pView;
-        view.addObserver(this);
-        view.setControlleur(this);
+        adapter = new Adapter(pView,this);
 
         moteur = new Moteur();
         /** Engine Initialization Command.*/
-        moteur.addCommand(CommandMoteur.UpdateBpm, () -> view.setValueBpm(moteur.getBPM()));
-        moteur.addCommand(CommandMoteur.UpdateSignature, () -> view.setValueSignature(moteur.getBPMesure()));
-        moteur.addCommand(CommandMoteur.MarquerTemps, () -> view.marquerTemps());
-        moteur.addCommand(CommandMoteur.MarquerMesure, () -> view.marquerMesure());
+        moteur.addCommand(CommandMoteur.UpdateBpm, () -> adapter.setValueBpm(moteur.getBPM()));
+        moteur.addCommand(CommandMoteur.UpdateSignature, () -> adapter.setValueSignature(moteur.getBPMesure()));
+        moteur.addCommand(CommandMoteur.MarquerTemps, () -> adapter.marquerTemps());
+        moteur.addCommand(CommandMoteur.MarquerMesure, () -> adapter.marquerMesure());
 
         // Initialize molette
         initMolette();
@@ -38,8 +38,6 @@ public class Controlleur implements IControlleur, Observer {
     }
 
     private void initMolette(){
-        view.setPositionMoletteToMiddle();
-        updateMolette();
         applyMolette();
     }
 
@@ -59,8 +57,8 @@ public class Controlleur implements IControlleur, Observer {
      *  {@inheritDoc}
      */
     @Override
-    public void updateMolette() {
-        moteur.setBPM((int) view.getPositionMolette());
+    public void updateMolette(double valueMolette) {
+        moteur.setBPM((int)valueMolette);
     }
 
     /**
@@ -91,9 +89,4 @@ public class Controlleur implements IControlleur, Observer {
         moteur.decr();
     }
 
-    /** execute a command on the engine */
-    @Override
-    public void update(Observable o, Object arg) {
-        ((Command) arg).execute();
-    }
 }

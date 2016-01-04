@@ -2,7 +2,7 @@ package fr.istic.aoc.metronome.controller;
 
 public interface IControlleur {
     /** update the bpm of the engine */
-    public void updateMolette();
+    public void updateMolette(double valueMolette);
     /* Method to start the engine */
     public void startMetronome();
     /** apply the new bpm on the clock */

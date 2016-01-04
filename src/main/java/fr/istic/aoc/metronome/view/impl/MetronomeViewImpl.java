@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 /**
  * Created by leiko on 23/10/15.
  */
-public class MetronomeViewImpl extends Observable implements Initializable, IView {
+public class MetronomeViewImpl implements Initializable, IView {
 
     private final int BPM_SELECTOR_MIN = 60;
     private final int BPM_SELECTOR_MAX = 180;
@@ -32,7 +32,6 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
     private static AudioClip AUDIO_CLIP_TEMPS;
     private static AudioClip AUDIO_CLIP_MESURE;
 
-    IControlleur controlleur;
 
     /*
     Controls
@@ -75,36 +74,6 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
             e.printStackTrace();
         }
 
-        sdr_tempoSelector.valueProperty().addListener((arg0, arg1, arg2) -> {
-            setChanged();
-            notifyObservers((Command) () -> controlleur.updateMolette());
-        });
-
-        sdr_tempoSelector.setOnMouseReleased(event -> {
-            setChanged();
-            notifyObservers((Command) () -> controlleur.applyMolette());
-        });
-
-        bt_start.setOnAction(event -> {setChanged();
-           notifyObservers((Command) () -> controlleur.startMetronome());
-        });
-
-        bt_stop.setOnAction(event -> {
-            setChanged();
-            notifyObservers((Command) () -> controlleur.stopMetronome());
-        });
-
-        bt_increase.setOnAction(event -> {
-            setChanged();
-            notifyObservers((Command) () -> controlleur.increaseMetronome());
-        });
-
-        bt_decrease.setOnAction(event -> {
-            setChanged();
-            notifyObservers((Command) () -> controlleur.decreaseMetronome());
-        });
-
-
         led_led1.setFill(Color.GREEN);
 
         sdr_tempoSelector.setMin(BPM_SELECTOR_MIN);
@@ -131,13 +100,6 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
         playSound(AUDIO_CLIP_MESURE);
         pause();
         led_led1.setFill(Paint.valueOf("DARKGREEN"));
-    }
-
-    /**
-     *  {@inheritDoc}
-     */
-    public void setControlleur(IControlleur controlleur) {
-        this.controlleur = controlleur;
     }
 
     /**
@@ -174,6 +136,7 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
         lbl_signature.setText(String.valueOf(bpMesure)+"/4" + "    ");
     }
 
+
     private void playSound(AudioClip clip)
     {
         clip.play();
@@ -185,5 +148,21 @@ public class MetronomeViewImpl extends Observable implements Initializable, IVie
         }catch(Exception e){
 
         }
+    }
+
+    public boolean getStateButtonStart(){
+        return bt_start.isPressed();
+    }
+
+    public boolean getStateButtonStop(){
+        return bt_stop.isPressed();
+    }
+
+    public boolean getStateButtonIncrease(){
+        return bt_increase.isPressed();
+    }
+
+    public boolean getStateButtonDecrease(){
+        return bt_decrease.isPressed();
     }
 }
